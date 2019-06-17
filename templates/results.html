@@ -9,8 +9,9 @@
   <thead>
     <th style=min-width:90px>Bus Number</th>
     <th style=min-width:90px>Time (1st)</th>
-    <th style=min-width:90px>Features (1st)</th>
-    <th style=min-width:90px>Space (1st)</th>
+    <th style=min-width:90px>Wheelchairs</th>
+    <th style=min-width:90px>Type</th>
+    <th style=min-width:90px>Load</th>
   </thead>
 
 </table>
@@ -24,8 +25,16 @@
 
       for(i=0;i<services.length; i++){
         busno = services[i]["no"]
-        arrtimems = services[i]["duration_ms"]/(1000*60)
-        arrtime = Math.round( arrtimems * 10 ) / 10;
+        arrtimems = services[i]["next"]["duration_ms"]
+        arrtimemin = arrtimems/60000
+        arrtime = Math.round( arrtimemin * 10 ) / 10;
+        if(arrtime <= 0){
+          arrtime="Arriving"
+        }
+        else{
+          arrtime=arrtime+" minutes"
+        };
+        $("table").append('<tr><td>'+busno+'</td><td>'+arrtime+'</td></tr>');
       }
 });
 
