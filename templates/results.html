@@ -2,21 +2,31 @@
   <head>
     <meta charset="utf-8">
     <title>blackpinkfansitelovelove</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://rawcdn.githack.com/Hi1307/ltabus/b896c394/flaticon.css" rel="stylesheet">
   </head>
+
+
   <body>
-<table>
+
+    <div class="container">
+    <div class="row">
+<table class="striped">
   <thead>
     <th style=min-width:90px>Bus Number</th>
-    <th style=min-width:90px>Time (1st)</th>
-    <th style=min-width:90px>Wheelchairs</th>
-    <th style=min-width:90px>Type</th>
-    <th style=min-width:90px>Load</th>
+    <th style=min-width:90px>Time</th>
+    <th style=min-width:90px>Features</th>
+    <th style=min-width:90px>Stalk Location</th>
+    <th style=min-width:90px>MMMMMMM</th>
   </thead>
 
 </table>
-  </body>
+
+</div></div>
+
   <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script>
   let searchParams = new URLSearchParams(window.location.search)
   url = "https://arrivelah.herokuapp.com/?id="+searchParams.get('stop');
@@ -28,15 +38,26 @@
         arrtimems = services[i]["next"]["duration_ms"]
         arrtimemin = arrtimems/60000
         arrtime = Math.round( arrtimemin * 10 ) / 10;
-        if(arrtime <= 0){
+        if(arrtime <= 0.5){
           arrtime="Arriving"
         }
         else{
           arrtime=arrtime+" minutes"
         };
-        $("table").append('<tr><td>'+busno+'</td><td>'+arrtime+'</td></tr>');
+        if(services[i]["next"]["load"] == "SDA"){
+          load = '<i class="material-icons">directions_walk</i>'
+        } else if(services[i]["next"]["load"] == "SEA"){
+          load = '<i class="material-icons">airline_seat_recline_normal</i>'
+        } else {
+          load = '<i class="material-icons">wc</i>'
+        }<i class="flaticon-056-bus-3">
+        if(services[i]["next"]["type"] == "SD"){
+
+        }
+        $("table").append('<tr><td>'+busno+'</td><td>'+arrtime+'</td><td><i class="material-icons">accessible</i>'+load++'</td></tr>');
       }
 });
 
   </script>
+    </body>
 </html>
