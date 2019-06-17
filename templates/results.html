@@ -5,14 +5,13 @@
   </head>
   <body>
    Hello!!
-   Change 3
 
    To be or not to be that is the question
 >>>>>>> dc1a8d66b52d7bc5d2935f93b9ebb4d4a88862c1
   </body>
   <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script>
-  url_fetch = "https://arrivelah.herokuapp.com/?id="+urlParams.get('stop'));
+  url_fetch = "https://arrivelah.herokuapp.com/?id="+url.parse(obj.stop);
   console.log(url_fetch)
   </script>
 </html>
