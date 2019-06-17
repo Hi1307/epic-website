@@ -20,9 +20,13 @@
   let searchParams = new URLSearchParams(window.location.search)
   url = "https://arrivelah.herokuapp.com/?id="+searchParams.get('stop');
   $.getJSON(url, function (json) {
-      services = json["services"]
-      console.log(services);
+      services = json["services"];
 
+      for(i=0;i<services.length; i++){
+        busno = services[i]["no"]
+        arrtimems = services[i]["duration_ms"]/(1000*60)
+        arrtime = Math.round( arrtimems * 10 ) / 10;
+      }
 });
 
   </script>
