@@ -12,13 +12,12 @@ jinja_current_dir = jinja2.Environment(
 
 class ResultsHandler(webapp2.RequestHandler):
     def get(self):
+        template = jinja_current_dir.get_template("templates/results.html")
         url = "https://arrivelah.busrouter.sg/?id=08057"
         dictionary = {"url": url,
                       }
-        self.response.write(jinja_current_dir.get_template(dictionary))
+        self.response.write(template.render(dictionary))
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler),
-    ('/loggedin', LoggedInHandler),
-    ('/nouser', NoUserHandler),
+    ('/results', ResultsHandler),
 ], debug=True)
