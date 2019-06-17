@@ -13,6 +13,11 @@ jinja_current_dir = jinja2.Environment(
 
 class WelcomeHandler(webapp2.RequestHandler):
     def get(self):
+        user = users.get_current_user()
+        if user:
+            user.nickname().put()
+        else:
+            pass
         template = jinja_current_dir.get_template("templates/welcome.html")
         self.response.write(template.render())
 
@@ -29,5 +34,5 @@ class ResultsHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/results', ResultsHandler),
-    ('/', WelcomeHandler)
+    ('/', WelcomeHandler),
 ], debug=True)

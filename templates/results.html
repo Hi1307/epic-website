@@ -2,6 +2,24 @@
   <head>
     <meta charset="utf-8">
     <title>blackpinkfansitelovelove</title>
+    <style>
+      @media (prefers-color-scheme: dark) {
+    body{
+      background-color: #333;
+      color: white !important;
+    }
+      button, input, optgroup, select, textarea {
+    	color: white !important;
+    }
+    .input-field label {
+      color: white;
+    }
+      }
+
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial !important;
+    }
+      </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://rawcdn.githack.com/Hi1307/ltabus/b896c394/flaticon.css" rel="stylesheet">
@@ -26,18 +44,42 @@
 </div></div>
 
   <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5jUfWC1Us-pdmcOUCKUzp1HWHMJN8OSU&callback=initMap"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script>
   let searchParams = new URLSearchParams(window.location.search)
   url = "https://arrivelah.herokuapp.com/?id="+searchParams.get('stop');
+
+
+
   $.getJSON(url, function (json) {
       services = json["services"];
 
+
       for(i=0;i<services.length; i++){
+
+
         busno = services[i]["no"]
         arrtimems = services[i]["next"]["duration_ms"]
         arrtimemin = arrtimems/60000
         arrtime = Math.round( arrtimemin * 10 ) / 10;
+
+        function initMap() {
+      var myLatLng = {lat: services[i]["next"]["lat"], lng: services[i]["next"]["lng"]};
+
+  var map = new google.maps.Map(document.getElementById('map'+i), {
+    zoom: 16,
+    center: myLatLng
+  });
+
+  var marker = new google.maps.Marker({
+    position: myLatLng,
+    map: map,
+    title: 'Hello World!'
+  });
+}
+
+
         if(arrtime <= 0.5){
           arrtime="Arriving"
         }
@@ -50,13 +92,23 @@
           load = '<i class="material-icons">airline_seat_recline_normal</i>'
         } else {
           load = '<i class="material-icons">wc</i>'
-        }<i class="flaticon-056-bus-3">
-        if(services[i]["next"]["type"] == "SD"){
-
         }
-        $("table").append('<tr><td>'+busno+'</td><td>'+arrtime+'</td><td><i class="material-icons">accessible</i>'+load++'</td></tr>');
+        if(services[i]["next"]["type"] == "SD"){
+          deck = '<i class="flaticon-056-bus-3">'
+        } else {
+          deck = '<i class="flaticon-101-double-decker-bus">'
+        }
+        $("table").append('<tr><td>'+busno+'</td><td><a href="#modal'+i+'">'+arrtime+'</a></td><td><i class="material-icons">accessible</i>'+load+deck+'</td></tr>');
+
+        $("body").append('<div id="modal'+i+'" class="modal"><div class="modal-content" id="map'+i+'">  </div><div class="modal-footer"><a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a></div>')
+
+        modal = '.modal'+i
+        $(modal).modal();
+
       }
 });
+
+var instance = M.Modal.getInstance(elem);
 
   </script>
     </body>
