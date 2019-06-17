@@ -3,6 +3,7 @@
     <meta charset="utf-8">
     <title>blackpinkfansitelovelove</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
   </head>
 
 
@@ -21,10 +22,11 @@
   <script>
   let searchParams = new URLSearchParams(window.location.search)
   url = "https://arrivelah.herokuapp.com/?id="+searchParams.get('stop');
-  jQuery.getJSON(url), function(data) {
-  services = data["services"];
-  console.log(services);
-}
+  $.getJSON(url, function (json) {
+      services = json["services"]
+      console.log(services);
+
+});
 
   </script>
 
