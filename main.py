@@ -13,7 +13,7 @@ jinja_current_dir = jinja2.Environment(
 class ResultsHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja_current_dir.get_template("templates/results.html")
-        url = "https://arrivelah.busrouter.sg/?id=08057"
+        url = "https://arrivelah.herokuapp.com/?id=08057"
         response = urlfetch.fetch(url)
         content = response.content
         response_as_json = json.loads(content)
