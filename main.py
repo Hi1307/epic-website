@@ -4,11 +4,17 @@ from google.appengine.api import urlfetch
 import json
 import os
 import jinja2
+from accounts import Account
 
 jinja_current_dir = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
+
+class WelcomeHandler(webapp2.RequestHandler):
+    def get(self):
+        template = jinja_current_dir.get_template("templates/welcome.html")
+        self.response.write(template.render())
 
 class ResultsHandler(webapp2.RequestHandler):
     def get(self):
@@ -23,4 +29,5 @@ class ResultsHandler(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/results', ResultsHandler),
+    ('/', WelcomeHandler)
 ], debug=True)
