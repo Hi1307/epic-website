@@ -14,7 +14,10 @@ class ResultsHandler(webapp2.RequestHandler):
     def get(self):
         template = jinja_current_dir.get_template("templates/results.html")
         url = "https://arrivelah.busrouter.sg/?id=08057"
-        dictionary = {"url": url,
+        response = urlfetch.fetch(url)
+        content = response.content
+        response_as_json = json.loads(content)
+        dictionary = {"url": response_as_json,
                       }
         self.response.write(template.render(dictionary))
 
