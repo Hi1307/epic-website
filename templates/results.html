@@ -2,16 +2,26 @@
   <head>
     <meta charset="utf-8">
     <title>blackpinkfansitelovelove</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <body>
-   Hello!!
+<table>
+  <thead>
+    <th style=min-width:90px>Bus Number</th>
+    <th style=min-width:90px>Time (1st)</th>
+    <th style=min-width:90px>Features (1st)</th>
+    <th style=min-width:90px>Space (1st)</th>
+  </thead>
 
-   To be or not to be that is the question
->>>>>>> dc1a8d66b52d7bc5d2935f93b9ebb4d4a88862c1
+</table>
   </body>
   <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script>
-  url_fetch = "https://arrivelah.herokuapp.com/?id="+url.parse(obj.stop);
-  console.log(url_fetch)
+  let searchParams = new URLSearchParams(window.location.search)
+  url = "https://arrivelah.herokuapp.com/?id="+searchParams.get('stop');
+  jQuery.getJSON(url), function(data) {
+  services = data["services"];
+  console.log(services);
+}
   </script>
 </html>
