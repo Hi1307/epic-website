@@ -28,15 +28,14 @@
 
   <body>
 
-    <div class="container"> 
+    <div class="container">
     <div class="row">
 <table class="striped">
   <thead>
     <th style=min-width:90px>Bus Number</th>
     <th style=min-width:90px>Time</th>
     <th style=min-width:90px>Features</th>
-    <th style=min-width:90px>Stalk Location</th>
-    <th style=min-width:90px>MMMMMMM</th>
+
   </thead>
 
 </table>
@@ -44,8 +43,6 @@
 </div></div>
 
   <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5jUfWC1Us-pdmcOUCKUzp1HWHMJN8OSU&callback=initMap"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script>
   let searchParams = new URLSearchParams(window.location.search)
   url = "https://arrivelah.herokuapp.com/?id="+searchParams.get('stop');
@@ -77,7 +74,7 @@
     map: map,
     title: 'Hello World!'
   });
-}
+  }
 
 
         if(arrtime <= 0.5){
@@ -98,18 +95,16 @@
         } else {
           deck = '<i class="flaticon-101-double-decker-bus">'
         }
-        $("table").append('<tr><td>'+busno+'</td><td><a href="#modal'+i+'">'+arrtime+'</a></td><td><i class="material-icons">accessible</i>'+load+deck+'</td></tr>');
-
-        $("body").append('<div id="modal'+i+'" class="modal"><div class="modal-content" id="map'+i+'">  </div><div class="modal-footer"><a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a></div>')
-
-        modal = '.modal'+i
-        $(modal).modal();
+        $("table").append('<tr><td>'+busno+'</td><td><a target="_blank" href="https://www.google.com.sg/maps/search/'+services[i]["next"]["lat"]+','+services[i]["next"]["lng"]+'">'+arrtime+'</a></td><td><i class="material-icons">accessible</i>'+load+deck+'</td></tr>');
 
       }
-});
+  });
+</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-var instance = M.Modal.getInstance(elem);
-
+  <script>
+  $('.modal').modal();
   </script>
+
     </body>
 </html>
