@@ -1,10 +1,11 @@
 import webapp2
-from google.appengine.api import users
 from google.appengine.api import urlfetch
 import json
 import os
 import jinja2
 import accounts
+from google.appengine.api import users
+
 
 jinja_current_dir = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -15,10 +16,7 @@ class WelcomeHandler(webapp2.RequestHandler):
     def get(self):
         login_url = users.create_login_url("/")
         user = users.get_current_user()
-        email = user.nickname()
-        dipshit = accounts.Account(email = email)
-        dipshit.put()
-        dictionary = {"login_url": login_url}
+        dictionary = {"login_url": login_url, "email":users.get_current_user()}
         template = jinja_current_dir.get_template("templates/welcome.html")
         self.response.write(template.render(dictionary))
 

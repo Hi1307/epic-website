@@ -4,7 +4,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>See Tow Bus v3</title>
-    <!--<script src="/cdn-cgi/apps/head/Oba9c5GUgv3sY7LqGCBF_sOqRs4.js"></script>-->
     <style>
       @media (prefers-color-scheme: dark) {
         body{
@@ -43,6 +42,8 @@
 
     <div class="container">
       <div class="row">
+        <h1 class="center"><span id="hm"></span></h1>
+        <a class="btn waves-effect waves-light modal-trigger" href="#map1">Street view</a> <br>
         <table>
           <thead>
             <th style=min-width:90px>Bus Number</th>
@@ -56,10 +57,23 @@
         </table>
       </div>
     </div>
+
+
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://rawcdn.githack.com/Hi1307/epic-website/fbc9b31fb17e548df6a03ca793361c6e2d1dc676/templates/busapp.js"></script>
+
+
     <script>
+
+
+
       let searchParams = new URLSearchParams(window.location.search);
+      stopno = searchParams.get('stop')
       url = "https://arrivelah.herokuapp.com/?id="+searchParams.get('stop');
+
+      $("#hm").append(bus_dict[parseInt(stopno)]);
+
 
       $.getJSON(url, function (json) {
         services = json["services"];
