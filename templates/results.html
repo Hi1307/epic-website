@@ -1,110 +1,158 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>blackpinkfansitelovelove</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>See Tow Bus v3</title>
+    <!--<script src="/cdn-cgi/apps/head/Oba9c5GUgv3sY7LqGCBF_sOqRs4.js"></script>-->
     <style>
       @media (prefers-color-scheme: dark) {
-    body{
-      background-color: #333;
-      color: white !important;
-    }
-      button, input, optgroup, select, textarea {
-    	color: white !important;
-    }
-    .input-field label {
-      color: white;
-    }
+        body{
+          background-color: #333;
+          color: white !important;
+        }
+        button, input, optgroup, select, textarea {
+    	    color: white !important;
+        }
+        .input-field label {
+          color: white;
+        }
       }
 
-    body {
-      font-family: "Helvetica Neue", Helvetica, Arial !important;
-    }
-      </style>
+      body {
+        font-family: "Helvetica Neue", Helvetica, Arial !important;
+      }
+    </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://rawcdn.githack.com/Hi1307/ltabus/b896c394/flaticon.css" rel="stylesheet">
+    <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+    <link rel="stylesheet" href="styles/index.css">
   </head>
 
 
   <body>
 
+    <button disabled class="js-push-btn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+      Enable Push Messaging
+    </button>
+
+    <section class="subscription-details js-subscription-details is-invisible">
+      <pre><code class="js-subscription-json"></code></pre>
+    </section>
+
     <div class="container">
-    <div class="row">
-<table class="striped">
-  <thead>
-    <th style=min-width:90px>Bus Number</th>
-    <th style=min-width:90px>Time</th>
-    <th style=min-width:90px>Features</th>
+      <div class="row">
+        <table>
+          <thead>
+            <th style=min-width:90px>Bus Number</th>
+            <th style=min-width:90px>Time</th>
+            <th style=min-width:90px>Features</th>
+            <th style=min-width:90px>Time (2)</th>
+            <th style=min-width:90px>Features (2)</th>
+            <th style=min-width:90px>Time (3)</th>
+            <th style=min-width:90px>Features (3)</th>
+          </thead>
+        </table>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+      let searchParams = new URLSearchParams(window.location.search);
+      url = "https://arrivelah.herokuapp.com/?id="+searchParams.get('stop');
 
-  </thead>
+      $.getJSON(url, function (json) {
+        services = json["services"];
+        for(i=0;i<services.length; i++) {
+          busno = services[i]["no"];
+          arrtimems = services[i]["next"]["duration_ms"];
+          arrtimemin = arrtimems/60000;
+          arrtime = Math.round( arrtimemin * 10 ) / 10;
 
-</table>
+          arrtime2ms = services[i]["subsequent"]["duration_ms"];
+          arrtime2min = arrtime2ms/60000;
+          arrtime2 = Math.round( arrtime2min * 10 ) / 10;
 
-</div></div>
+          arrtime3ms = services[i]["next3"]["duration_ms"];
+          arrtime3min = arrtime3ms/60000;
+          arrtime3 = Math.round( arrtime3min * 10 ) / 10;
 
-  <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script>
-  let searchParams = new URLSearchParams(window.location.search)
-  url = "https://arrivelah.herokuapp.com/?id="+searchParams.get('stop');
+          if(arrtime <= 0.5) {
+            arrtime="Arriving";
+          }
+          else {
+            arrtime=arrtime+" mins";
+          }
 
+          if(services[i]["next"]["load"] == "SDA") {
+            load = '<i class="material-icons">directions_walk</i>';
+          } else if(services[i]["next"]["load"] == "SEA") {
+            load = '<i class="material-icons">airline_seat_recline_normal</i>';
+          } else {
+            load = '<i class="material-icons">wc</i>';
+          }
 
+          if(services[i]["next"]["type"] == "SD") {
+            deck = '<i class="flaticon-056-bus-3">';
+          } else {
+            deck = '<i class="flaticon-101-double-decker-bus">';
+          }
 
-  $.getJSON(url, function (json) {
-      services = json["services"];
+          if(arrtime2 == null()) {
+            arrtime2 = "No data";
+          } else if(arrtime2 >= 1.1) {
+            arrtime2 = arrtime2+" mins";
+          } else if(arrtime2 < 1.1) {
+            arrtime2="Arriving";
+          }
 
+          if(services[i]["subsequent"]["load"] == "SDA") {
+            load2 = '<i class="material-icons">directions_walk</i>';
+          } else if(services[i]["subsequent"]["load"] == "SEA") {
+            load2 = '<i class="material-icons">airline_seat_recline_normal</i>';
+          } else {
+            load2 = '<i class="material-icons">wc</i>';
+          }
 
-      for(i=0;i<services.length; i++){
+          if(services[i]["subsequent"]["type"] == "SD") {
+            deck2 = '<i class="flaticon-056-bus-3">';
+          } else {
+            deck2 = '<i class="flaticon-101-double-decker-bus">';
+          }
 
+          if(arrtime3 == null) {
+            arrtime3 = "No data";
+          } else if(arrtime3 >= 1.1) {
+            arrtime3 = arrtime2+" mins";
+          } else if(arrtime3 < 1.1) {
+            arrtime3="Arriving";
+          }
 
-        busno = services[i]["no"]
-        arrtimems = services[i]["next"]["duration_ms"]
-        arrtimemin = arrtimems/60000
-        arrtime = Math.round( arrtimemin * 10 ) / 10;
+          if(services[i]["next3"]["load"] == "SDA") {
+            load3 = '<i class="material-icons">directions_walk</i>';
+          } else if(services[i]["next3"]["load"] == "SEA"){
+            load3 = '<i class="material-icons">airline_seat_recline_normal</i>';
+          } else {
+            load3 = '<i class="material-icons">wc</i>';
+          }
 
-        function initMap() {
-      var myLatLng = {lat: services[i]["next"]["lat"], lng: services[i]["next"]["lng"]};
+          if(services[i]["next3"]["type"] == "SD"){
+            deck3 = '<i class="flaticon-056-bus-3">';
+          } else {
+            deck3 = '<i class="flaticon-101-double-decker-bus">';
+          }
 
-  var map = new google.maps.Map(document.getElementById('map'+i), {
-    zoom: 16,
-    center: myLatLng
-  });
-
-  var marker = new google.maps.Marker({
-    position: myLatLng,
-    map: map,
-    title: 'Hello World!'
-  });
-  }
-
-
-        if(arrtime <= 0.5){
-          arrtime="Arriving"
+          $("table").append('<tr><td>'+busno+'</td><td><a target="_blank" href="https://www.google.com.sg/maps/search/'+services[i]["next"]["lat"]+','+services[i]["next"]["lng"]+'">'+arrtime+'</a></td><td><i class="material-icons">accessible</i>'+load+deck+'</td><td><a target="_blank" href="https://www.google.com.sg/maps/search/'+services[i]["subsequent"]["lat"]+','+services[i]["subsequent"]["lng"]+'">'+arrtime2+'</a></td><td><i class="material-icons">accessible</i>'+load2+deck2+'</td><td><a target="_blank" href="https://www.google.com.sg/maps/search/'+services[i]["next3"]["lat"]+','+services[i]["next3"]["lng"]+'">'+arrtime3+'</a></td><td><i class="material-icons">accessible</i>'+load3+deck3+'</td></tr>');
         }
-        else{
-          arrtime=arrtime+" minutes"
-        };
-        if(services[i]["next"]["load"] == "SDA"){
-          load = '<i class="material-icons">directions_walk</i>'
-        } else if(services[i]["next"]["load"] == "SEA"){
-          load = '<i class="material-icons">airline_seat_recline_normal</i>'
-        } else {
-          load = '<i class="material-icons">wc</i>'
-        }
-        if(services[i]["next"]["type"] == "SD"){
-          deck = '<i class="flaticon-056-bus-3">'
-        } else {
-          deck = '<i class="flaticon-101-double-decker-bus">'
-        }
-        $("table").append('<tr><td>'+busno+'</td><td><a target="_blank" href="https://www.google.com.sg/maps/search/'+services[i]["next"]["lat"]+','+services[i]["next"]["lng"]+'">'+arrtime+'</a></td><td><i class="material-icons">accessible</i>'+load+deck+'</td></tr>');
+      });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-      }
-  });
-</script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      $('.modal').modal();
+    </script>
 
-  <script>
-  $('.modal').modal();
-  </script>
-
-    </body>
+    <script src="scripts/main.js"></script>
+    <script src="https://code.getmdl.io/1.2.1/material.min.js"></script>
+  </body>
 </html>
