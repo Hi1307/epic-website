@@ -98,12 +98,10 @@
             deck = '<i class="flaticon-101-double-decker-bus">';
           }
 
-          if(arrtime2 == null()) {
-            arrtime2 = "No data";
-          } else if(arrtime2 >= 1.1) {
-            arrtime2 = arrtime2+" mins";
-          } else if(arrtime2 < 1.1) {
+          if(arrtime2 <= 0.5) {
             arrtime2="Arriving";
+          } else {
+            arrtime2 = arrtime2+" mins";
           }
 
           if(services[i]["subsequent"]["load"] == "SDA") {
@@ -120,12 +118,10 @@
             deck2 = '<i class="flaticon-101-double-decker-bus">';
           }
 
-          if(arrtime3 == null) {
-            arrtime3 = "No data";
-          } else if(arrtime3 >= 1.1) {
-            arrtime3 = arrtime2+" mins";
-          } else if(arrtime3 < 1.1) {
+          if(arrtime3 <= 0.5) {
             arrtime3="Arriving";
+          } else {
+            arrtime3 = arrtime3+" mins";
           }
 
           if(services[i]["next3"]["load"] == "SDA") {
