@@ -16,8 +16,8 @@
       #info-box {
         background-color: white;
         border: 1px solid black;
-        bottom: 200px;
-        height: 20px;
+        bottom: 50px;
+        height: 4 0px;
         padding: 10px;
         position: absolute;
         left: 30px;
@@ -76,8 +76,8 @@
 
   <div id="map1" class="modal">
     <div class="modal-content">
-    <div id="map">
-    <div id="info-box">Find a bus stop!</div></div></div>
+    <div id="map"></div>
+    <div id="info-box">Find a bus stop!</div></div>
   <div class="modal-footer">
     <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
   </div>
@@ -113,7 +113,7 @@ function initMap() {
     map.data.loadGeoJson(
       'https://rawcdn.githack.com/Hi1307/seetowcdn/6cb5b17532a03b09ec864e12b53accea125eede8/geojson.json');
 
-map.data.addListener('mouseover', function(event) { document.getElementById('info-box').textContent = event.feature.getProperty('busstopcode'); });
+map.data.addListener('click', function(event) { document.getElementById('info-box').textContent = event.feature.getProperty('busstopcode'); });
 
   infoWindow = new google.maps.InfoWindow;
 
