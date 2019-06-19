@@ -15,7 +15,7 @@ class WelcomeHandler(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
         if user:
-            user.nickname().put()
+            pass 
         else:
             pass
         template = jinja_current_dir.get_template("templates/welcome.html")
