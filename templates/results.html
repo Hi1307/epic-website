@@ -88,18 +88,18 @@
       $.getJSON(url, function (json) {
         services = json["services"];
         for(i=0;i<services.length; i++) {
-          busno = services[i]["no"];
-          arrtimems = services[i]["next"]["duration_ms"];
-          arrtimemin = arrtimems/60000;
-          arrtime = Math.round( arrtimemin * 10 ) / 10;
+          let busno = services[i]["no"];
+          let arrtimems = services[i]["next"]["duration_ms"];
+          let arrtimemin = arrtimems/60000;
+          let arrtime = Math.round( arrtimemin * 10 ) / 10;
 
-          arrtime2ms = services[i]["subsequent"]["duration_ms"];
-          arrtime2min = arrtime2ms/60000;
-          arrtime2 = Math.round( arrtime2min * 10 ) / 10;
+          let arrtime2ms = services[i]["subsequent"]["duration_ms"];
+          let arrtime2min = arrtime2ms/60000;
+          let arrtime2 = Math.round( arrtime2min * 10 ) / 10;
 
-          arrtime3ms = services[i]["next3"]["duration_ms"];
-          arrtime3min = arrtime3ms/60000;
-          arrtime3 = Math.round( arrtime3min * 10 ) / 10;
+          let arrtime3ms = services[i]["next3"]["duration_ms"];
+          let arrtime3min = arrtime3ms/60000;
+          let arrtime3 = Math.round( arrtime3min * 10 ) / 10;
 
           if(arrtime <= 0.5) {
             arrtime="Arriving";
@@ -162,7 +162,15 @@
             deck3 = '<i class="flaticon-101-double-decker-bus">';
           }
 
-          $("table").append('<tr><td>'+busno+'</td><td><a target="_blank" href="https://www.google.com.sg/maps/search/'+services[i]["next"]["lat"]+','+services[i]["next"]["lng"]+'">'+arrtime+'</a></td><td><i class="material-icons">accessible</i>'+load+deck+'</td><td><a target="_blank" href="https://www.google.com.sg/maps/search/'+services[i]["subsequent"]["lat"]+','+services[i]["subsequent"]["lng"]+'">'+arrtime2+'</a></td><td><i class="material-icons">accessible</i>'+load2+deck2+'</td><td><a target="_blank" href="https://www.google.com.sg/maps/search/'+services[i]["next3"]["lat"]+','+services[i]["next3"]["lng"]+'">'+arrtime3+'</a></td><td><i class="material-icons">accessible</i>'+load3+deck3+'</td></tr>');
+          $("table").append('<tr id="' + busno + '"><td>' +busno+'</td><td><a target="_blank" href="https://www.google.com.sg/maps/search/'+services[i]["next"]["lat"]+','+services[i]["next"]["lng"]+'">'+arrtime+'</a></td><td><i class="material-icons">accessible</i>'+load+deck+'</td><td><a target="_blank" href="https://www.google.com.sg/maps/search/'+services[i]["subsequent"]["lat"]+','+services[i]["subsequent"]["lng"]+'">'+arrtime2+'</a></td><td><i class="material-icons">accessible</i>'+load2+deck2+'</td><td><a target="_blank" href="https://www.google.com.sg/maps/search/'+services[i]["next3"]["lat"]+','+services[i]["next3"]["lng"]+'">'+arrtime3+'</a></td><td><i class="material-icons">accessible</i>'+load3+deck3+'</td></tr>');
+          $('#' + busno)[0].addEventListener('click', function() {
+            const title = busno;
+            const options = {
+              body: 'Simple piece of body text.\nSecond line of body text :)'
+            };
+            let delay = arrtimems-120000
+            setTimeout(function() {swRegistration.showNotification(title, options);}, delay)
+          })
         }
       });
     </script>
