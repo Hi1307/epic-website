@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title> *app_name* </title>
+  <title>我的滑板鞋</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
 
   <STYLE TYPE="text/css" MEDIA=screen>
     body    { border: 20px solid grey }
     h4       { text-align: center}
     bus_stop_no {align-items: center}
+    /* Always set the map height explicitly to define the size of the div
+ * element that contains the map. */
+#map1 {
+  height: 100%;
+}
+      #info-box {
+        background-color: white;
+        border: 1px solid black;
+        bottom: 30px;
+        height: 20px;
+        padding: 10px;
+        position: absolute;
+        left: 30px;
+        font-family: "Helvetica Neue"
+      }
 
   </STYLE>
 </head>
@@ -34,6 +49,10 @@
           <a class="btn waves-effect waves-light" onClick="javascript: location.replace('https://qwiklabs-gcp-cc134da2983f59a0.appspot.com/results?stop='+document.getElementById('bus_stop_no').value);">Go!
           </a></form>
           <a href="{{login_url}}">not very compulsory login</a>
+
+          <a class="btn waves-effect waves-light modal-trigger" href="#map1">Nearby bus stops</a>
+
+
       </div>
     </form>
     <form method = "post" action = "/memeresult">
@@ -57,5 +76,82 @@
   <br>
   <br>
   <br>
+
+  <div id="map1" class="modal">
+    <div class="modal-content">
+    <div id="map">
+    <div id="info-box">Find a bus stop!</div></div></div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+  </div>
+</div>
+
+<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+
+$(document).ready(function(){
+  $('.modal').modal();
+});
+
+
+// Note: This example requires that you consent to location sharing when
+// prompted by your browser. If you see the error "The Geolocation service
+// failed.", it means you probably did not give permission for the browser to
+// locate you.
+var map, infoWindow;
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 1.290270, lng: 103.851959},
+    restriction: {
+    latLngBounds: {
+        north: 1.506417,
+        south: 1.199572,
+        west: 103.552020,
+        east: 104.058765,
+      },
+      },
+    zoom: 16
+  });
+
+    map.data.loadGeoJson(
+      'https://rawcdn.githack.com/Hi1307/seetowcdn/6cb5b17532a03b09ec864e12b53accea125eede8/geojson.json');
+
+map.data.addListener('mouseover', function(event) { document.getElementById('info-box').textContent = event.feature.getProperty('busstopcode'); });
+
+  infoWindow = new google.maps.InfoWindow;
+
+  // Try HTML5 geolocation.
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+
+      infoWindow.setPosition(pos);
+      infoWindow.setContent("You're here!");
+      infoWindow.open(map);
+      map.setCenter(pos);
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(browserHasGeolocation ?
+                        'Error: The Geolocation service failed.' :
+                        'Error: Your browser doesn\'t support geolocation.');
+  infoWindow.open(map);
+}
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5jUfWC1Us-pdmcOUCKUzp1HWHMJN8OSU&callback=initMap">
+</script>
 </body>
 </html>
