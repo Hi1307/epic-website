@@ -121,14 +121,18 @@ function initializeUI() {
 }
 
 if ('serviceWorker' in navigator && 'PushManager' in window) {
-      navigator.serviceWorker.register('scripts/service.js').then(function(swRegistration) {
-      console.log('ServiceWorker registration successful with scope: ', swRegistration);
-      initializeUI();
-    }).catch(function(err) {
-      //registration failed :(
-      console.log('ServiceWorker registration failed: ', err);
-    });
-  }else {
-    console.log('No service-worker on this browser');
-    pushButton.textContent = 'Push not Supported';
-  }
+  console.log('Service Worker and Push is supported');
+
+  navigator.serviceWorker.register('scripts/service.js')
+  .then(function(swReg) {
+    console.log('Service Worker is registered', swReg);
+    swRegistration = swReg;
+    initializeUI();
+  })
+  .catch(function(error) {
+    console.error('Service Worker Error', error);
+  });
+} else {
+  console.warn('Push messaging is not supported');
+  pushButton.textContent = 'Push Not Supported';
+}
