@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I LOVE BLACKPINK!!!!!!!!!</title>
+    <title>Results - The Bus App</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
     <style>
     #street-view {
@@ -262,6 +262,19 @@
       $(document).ready(function(){
         $('.modal').modal();
       });
+
+function getCookie(name) {
+  var re = new RegExp(name + "=([^;]+)");
+  var value = re.exec(document.cookie);
+  return (value != null) ? unescape(value[1]) : null;
+}
+
+favourite = getCookie("fav")
+
+
+    function updatecookie() {
+      document.cookie = "fav="+favourite+","+stopno+";path=/";
+    }
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5jUfWC1Us-pdmcOUCKUzp1HWHMJN8OSU&callback=initialize"></script>
