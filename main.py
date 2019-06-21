@@ -43,8 +43,23 @@ class datastorerHandler(webapp2.RequestHandler):
         template = jinja_current_dir.get_template("templates/data_storer.html")
         self.response.write(template.render(dictionary))
 
+class ResultsButWithCustomTimingHandler(webapp2.RequestHandler):
+    def post(self):
+        template = jinja_current_dir.get_template("templates/resultsbutwithcustomtiming.html")
+        url = "https://arrivelah.herokuapp.com/?id=08057"
+        response = urlfetch.fetch(url)
+        content = response.content
+        response_as_json = json.loads(content)
+        delay = self.request.get("customtiming")
+        buscode = self.request.get("buscode")
+        dictionary = {"url": response_as_json,
+                      "delay": delay,
+                      "buscode": buscode}
+        self.response.write(template.render(dictionary))
+
 app = webapp2.WSGIApplication([
     ('/results', ResultsHandler),
     ('/', WelcomeHandler),
-    ('/data_storer', datastorerHandler)
+    ('/data_storer', datastorerHandler),
+    ('/resultsbutwithcustomtiming', ResultsButWithCustomTimingHandler),
 ], debug=True)
