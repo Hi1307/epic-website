@@ -208,14 +208,40 @@
           	deck3 = ""
           }
 
-          $("#time").append('<tr id="' + busno + '"><td>' +busno+'</td><td><a target="_blank" href="https://www.google.com.sg/maps/search/'+services[i]["next"]["lat"]+','+services[i]["next"]["lng"]+'">'+arrtime+'</a></td><td>'+wab+load+deck+'</td><td><a target="_blank" href="https://www.google.com.sg/maps/search/'+services[i]["subsequent"]["lat"]+','+services[i]["subsequent"]["lng"]+'">'+arrtime2+'</a></td><td>'+wab2+load2+deck2+'</td><td><a target="_blank" href="https://www.google.com.sg/maps/search/'+services[i]["next3"]["lat"]+','+services[i]["next3"]["lng"]+'">'+arrtime3+'</a></td><td>'+wab3+load3+deck3+'</td></tr>');
+          $("#time").append('<tr><td>' +busno+'</td><td><a target="_blank" href="https://www.google.com.sg/maps/search/'+services[i]["next"]["lat"]+','+services[i]["next"]["lng"]+'">'+arrtime+'</a></td><td id="' + busno + '">'+wab+load+deck+'</td><td><a target="_blank" href="https://www.google.com.sg/maps/search/'+services[i]["subsequent"]["lat"]+','+services[i]["subsequent"]["lng"]+'">'+arrtime2+'</a></td><td id="' + busno + '1">'+wab2+load2+deck2+'</td><td><a target="_blank" href="https://www.google.com.sg/maps/search/'+services[i]["next3"]["lat"]+','+services[i]["next3"]["lng"]+'">'+arrtime3+'</a></td><td id="' + busno + '2">'+wab3+load3+deck3+'</td></tr>');
           $('#' + busno)[0].addEventListener('click', function() {
             const title = busno+' is arriving soon';
             const options = {
-              body: 'Please proceed to the bus stop to board your bus!',
+              body: 'Please proceed to '+bus_dict[parseInt(stopno)]+' to board your bus!',
               requireInteraction: true
             };
             let delay = arrtimems-120000;
+            setTimeout(function() {swRegistration.showNotification(title, options);
+                                   document.getElementById("myAudio").play();
+                                  },delay
+            )
+          })
+
+          $('#' + busno+'1')[0].addEventListener('click', function() {
+            const title = busno+' is arriving soon';
+            const options = {
+              body: 'Please proceed to '+bus_dict[parseInt(stopno)]+' to board your bus!',
+              requireInteraction: true
+            };
+            let delay = arrtime2ms-200000;
+            setTimeout(function() {swRegistration.showNotification(title, options);
+                                   document.getElementById("myAudio").play();
+                                  },delay
+            )
+          })
+
+          $('#' + busno+'2')[0].addEventListener('click', function() {
+            const title = busno+' is arriving soon';
+            const options = {
+              body: 'Please proceed to '+bus_dict[parseInt(stopno)]+' to board your bus!',
+              requireInteraction: true
+            };
+            let delay = arrtime3ms-300000;
             setTimeout(function() {swRegistration.showNotification(title, options);
                                    document.getElementById("myAudio").play();
                                   },delay
