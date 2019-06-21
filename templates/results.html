@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I am inevitable</title>
+    <title>I LOVE BLACKPINK!!!!!!!!!</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
     <style>
     #street-view {
@@ -35,7 +35,13 @@
       <input id="bus_stop_no" type="text" maxlength="7" class=" center" placeholder="Bus Stop Number" >
       <a class="btn waves-effect waves-light" onClick="javascript: location.replace('https://qwiklabs-gcp-bde03a1b81592525.appspot.com/results?stop='+document.getElementById('bus_stop_no').value);">Go!</a>
     </form>
-    <div id="sound"></div>
+    <div id="sound">
+      s
+      <audio id="myAudio">
+        <source id = "DeezNutz" src="musics/Iphone_opening_ringtone.ogg" type="audio/ogg">
+        <source src="musics/Iphone_opening_ringtone.mp3" type="audio/mpeg">
+      </audio>
+    </div>
     <div class="container">
       <div class="row">
         <h1 class="center"><span id="hm"></span></h1>
@@ -210,13 +216,29 @@
           $('#' + busno)[0].addEventListener('click', function() {
             const title = busno+' is arriving soon';
             const options = {
-              body: 'Please proceed to the bus stop to board your bus!'
+              body: 'Please proceed to the bus stop to board your bus!',
+              requireInteraction: true
             };
-            let delay = arrtimems-120000
-            setTimeout(function() {swRegistration.showNotification(title, options);}, delay)
+            let delay = arrtimems-120000;
+            setTimeout(function() {swRegistration.showNotification(title, options);
+                                   document.getElementById("myAudio").play();
+                                  },delay
+            )
           })
         }
       });
+      $('#sound')[0].addEventListener('click', function() {
+        const title = ' is arriving soon';
+        const options = {
+          body: 'Please proceed to the bus stop to board your bus!',
+          requireInteraction: true
+        };
+        let delay = 1000;
+        setTimeout(function() {swRegistration.showNotification(title, options);
+                               document.getElementById("myAudio").play();
+                              },delay
+        )
+      })
     </script>
     <script>
       var panorama;
