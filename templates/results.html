@@ -3,55 +3,53 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>I am inevitable</title>
+    <title>I LOVE BLACKPINK!!!!!!!!!</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
     <style>
     #street-view {
       height: 600px;
     }
-      @media (prefers-color-scheme: dark) {
-        body{
-          background-color: #333;
-          color: white !important;
-        }
-        button, input, optgroup, select, textarea {
-    	    color: white !important;
-        }
-        .input-field label {
-          color: white;
-        }
+    @media (prefers-color-scheme: dark) {
+      body{
+        background-color: #333;
+        color: white !important;
       }
-
-      body {
-        font-family: "Helvetica Neue", Helvetica, Arial !important;
+      button, input, optgroup, select, textarea {
+        color: white !important;
       }
-      #map1 {
-
-        height: 500px;
+      .input-field label {
+        color: white;
       }
-
+    }
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial !important;
+    }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://rawcdn.githack.com/Hi1307/ltabus/b896c394/flaticon.css" rel="stylesheet">
     <link rel="stylesheet" href="https://rawcdn.githack.com/Hi1307/epic-website/3ff373dba97086f43e3afa7c41bcdd0a206e0100/styles/index.css">
   </head>
-
-
   <body>
+
+    <div id="sound">
+      <audio id="myAudio">
+        <source id = "DeezNutz" src="musics/Iphone_opening_ringtone.ogg" type="audio/ogg">
+        <source src="musics/Iphone_opening_ringtone.mp3" type="audio/mpeg">
+      </audio>
+    </div>
     <div id="sound"></div>
-
-
     <div class="container">
-      <div class="row">
+      <div class="row center">
         <h1 class="center"><span id="hm"></span></h1>
-        <a class="btn waves-effect waves-light modal-trigger" href="#map1">Street view</a> <br>
-    <button disabled class="js-push-btn btn waves-effect waves-light">
-      Enable bus alerts!
-    </button>
-
-    <section class="subscription-details js-subscription-details is-invisible">
-      <pre><code class="js-subscription-json"></code></pre>
-    </section>
+        <p class="center"><a class="btn waves-effect waves-light" href="/"><i class="material-icons">arrow_back</i></a><a class="btn waves-effect waves-light modal-trigger" href="#map1">Street view</a><a class="btn waves-effect waves-light" onClick="window.location.reload();"><i class="material-icons">refresh</i></a><a class="btn waves-effect waves-light" onClick="updatecookie();"><i class="material-icons">star</i></a></p>
+        <br>
+        <button disabled class="js-push-btn btn waves-effect waves-light">
+          Enable bus alerts!
+        </button>
+        <section class="subscription-details js-subscription-details is-invisible">
+          <pre><code class="js-subscription-json"></code></pre>
+        </section>
         <table class="striped">
           <thead>
             <th>Legend</th>
@@ -60,13 +58,14 @@
         	<tr>
         		<td>Space</td><td><i class="material-icons">airline_seat_recline_normal</i>Seating available</td><td><i class="material-icons">directions_walk</i>Standing space</td><td><i class="material-icons">wc</i>Limited standing space</td>
         	</tr>
+
         	<tr>
         		<td>Wheelchair Access</td><td><i class="material-icons">accessible</i>Wheelchair Accessible</td>
         	</tr>
+
         	<tr>
         		<td>Type of bus</td><td><i class="flaticon-056-bus-3"></i>Single decker</td><td><i class="flaticon-101-double-decker-bus"></i>Double decker</td><td>🅱️ Bendy/Articulated bus</td>
         	</tr>
-
         </table>
         <table id="time">
           <thead>
@@ -81,27 +80,21 @@
         </table>
       </div>
     </div>
-
     <div id="map1" class="modal">
       <div class="modal-content">
-      <div id="street-view">
-      </div></div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+        <div id="street-view">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+      </div>
     </div>
-  </div>
-
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://rawcdn.githack.com/Hi1307/epic-website/fbc9b31fb17e548df6a03ca793361c6e2d1dc676/templates/busapp.js"></script>
     <script src="https://rawcdn.githack.com/Hi1307/epic-website/145e340a90c74b45467bb1a4706621f63afd3e30/templates/busapp2.js"></script>
-
-
     <script>
-
-
-
       let searchParams = new URLSearchParams(window.location.search);
-      stopno = searchParams.get('stop')
+      stopno = searchParams.get('stop');
       url = "https://arrivelah.herokuapp.com/?id="+searchParams.get('stop');
 
       $("#hm").append(bus_dict[parseInt(stopno)]+' ('+stopno+')');
@@ -220,38 +213,62 @@
           $('#' + busno)[0].addEventListener('click', function() {
             const title = busno+' is arriving soon';
             const options = {
-              body: 'Please proceed to the bus stop to board your bus!'
+              body: 'Please proceed to the bus stop to board your bus!',
+              requireInteraction: true
             };
-            let delay = arrtimems-120000
-            setTimeout(function() {swRegistration.showNotification(title, options);}, delay)
+            let delay = arrtimems-120000;
+            setTimeout(function() {swRegistration.showNotification(title, options);
+                                   document.getElementById("myAudio").play();
+                                  },delay
+            )
           })
         }
       });
+      $('#sound')[0].addEventListener('click', function() {
+        const title = ' is arriving soon';
+        const options = {
+          body: 'Please proceed to the bus stop to board your bus!',
+          requireInteraction: true
+        };
+        let delay = 1000;
+        setTimeout(function() {swRegistration.showNotification(title, options);
+                               document.getElementById("myAudio").play();
+                              },delay
+        )
+      })
     </script>
     <script>
-    var panorama;
-    function initialize() {
-      panorama = new google.maps.StreetViewPanorama(
-          document.getElementById('street-view'),
+      var panorama;
+      function initialize() {
+        panorama = new google.maps.StreetViewPanorama(document.getElementById('street-view'),
           {
             position: {lat: bus_dict2[parseInt(stopno)][0], lng: bus_dict2[parseInt(stopno)][1]},
             pov: {heading: 0, pitch: 0},
             zoom: 1
           });
-    }
+      }
+      $(document).ready(function(){
+        $('.modal').modal();
+      });
 
-    $(document).ready(function(){
-      $('.modal').modal();
-    });
+function getCookie(name) {
+  var re = new RegExp(name + "=([^;]+)");
+  var value = re.exec(document.cookie);
+  return (value != null) ? unescape(value[1]) : null;
+}
+
+favourite = getCookie("fav")
+
+
+    function updatecookie() {
+      document.cookie = "fav="+favourite+","+stopno+";path=/";
+    }
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script async defer
-         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5jUfWC1Us-pdmcOUCKUzp1HWHMJN8OSU&callback=initialize">
-    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5jUfWC1Us-pdmcOUCKUzp1HWHMJN8OSU&callback=initialize"></script>
     <script>
       $('.modal').modal();
     </script>
-
     <script src="https://rawcdn.githack.com/Hi1307/epic-website/3ff373dba97086f43e3afa7c41bcdd0a206e0100/scripts/main.js"></script>
   </body>
 </html>

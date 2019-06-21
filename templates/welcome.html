@@ -4,8 +4,10 @@
     <title>The Bus App </title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
     <style TYPE="text/css" MEDIA=screen>
-    body    { border: 20px solid grey }
+    body    { border: 20px solid grey;
+              background: url(⁩https://www.toptal.com/designers/subtlepatterns/patterns/just-waves.png⁩) repeat 0 0;}
     h4       { text-align: center}
+
     bus_stop_no {align-items: center}
     /* Always set the map height explicitly to define the size of the div
  * element that contains the map. */
@@ -28,9 +30,11 @@
         font-family: "Helvetica Neue";
         width: 100px;
       }
+
+
     </style>
   </head>
-  <body bgcolor="#B0C4DE">
+  <body>
     <br>
     <br>
     <br>
@@ -47,7 +51,7 @@
             <div class="center">
               <form><h4 class="center"><u>   Bus Stop Number: </u></h4>
                 <input id="bus_stop_no" type="text" maxlength="7" class=" center" placeholder="Bus Stop Number" >
-                <a class="btn waves-effect waves-light" onClick="javascript: location.replace('https://qwiklabs-gcp-cc134da2983f59a0.appspot.com/results?stop='+document.getElementById('bus_stop_no').value);">Go!</a>
+                <a class="btn waves-effect waves-light" onClick="javascript: location.replace('https://qwiklabs-gcp-bde03a1b81592525.appspot.com/results?stop='+document.getElementById('bus_stop_no').value);">Go!</a>
               </form>
               <a class="btn waves-effect waves-light modal-trigger" href="#map1">Nearby bus stops</a>
               <br>
