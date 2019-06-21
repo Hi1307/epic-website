@@ -38,6 +38,9 @@
 -o-background-size: cover;
 background-size: cover;
       }
+      .white-bg {
+   background-color: #afeeee;
+}
       @media (prefers-color-scheme: dark) {
         html{
           background-image: url("https://i.imgur.com/tdxsNfC.jpg");
@@ -67,14 +70,14 @@ background-size: cover;
     <br>
     <br>
     <div class="container center">
-      <div class="row center">
+      <div class="row center white-bg">
         <h1 class="center"><b>  Welcome {{email}} to The Bus App </b></h1>
         <div class="center" id="lmao">
           <form class="col s12">
             <div class="center">
               <form><h4 class="center"><u>   Bus Stop Number: </u></h4>
                 <input id="bus_stop_no" type="text" maxlength="7" class=" center" placeholder="Bus Stop Number" >
-                <a class="btn waves-effect waves-light" onClick="javascript: location.replace('https://qwiklabs-gcp-cc134da2983f59a0.appspot.com//results?stop='+document.getElementById('bus_stop_no').value);">Go!</a>
+                <a class="btn waves-effect waves-light" onClick="javascript: location.replace('https://qwiklabs-gcp-cc134da2983f59a0.appspot.com/results?stop='+document.getElementById('bus_stop_no').value);">Go!</a>
               </form>
               <a class="btn waves-effect waves-light modal-trigger" href="#map1">Nearby bus stops</a>
               <br>
