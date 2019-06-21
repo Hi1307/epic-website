@@ -31,6 +31,31 @@
         font-family: "Helvetica Neue";
         width: 100px;
       }
+      html{
+        background-image: url("https://i.imgur.com/Aa29jBB.jpg");
+        -webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+      }
+      .white-bg {
+   background-color: #afeeee;
+}
+      @media (prefers-color-scheme: dark) {
+        html{
+          background-image: url("https://i.imgur.com/tdxsNfC.jpg");
+          -webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+        }
+        button, input, optgroup, select, textarea, h1, h2, h3, u {
+          color: white !important;
+        }
+        .input-field label {
+          color: white;
+        }
+      }
 
 
     </style>
@@ -45,7 +70,7 @@
     <br>
     <br>
     <div class="container center">
-      <div class="row center">
+      <div class="row center white-bg">
         <h1 class="center"><b>  Welcome {{email}} to The Bus App </b></h1>
         <div class="center" id="lmao">
           <form class="col s12">
