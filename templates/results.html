@@ -31,12 +31,6 @@
     <link rel="stylesheet" href="https://rawcdn.githack.com/Hi1307/epic-website/3ff373dba97086f43e3afa7c41bcdd0a206e0100/styles/index.css">
   </head>
   <body>
-    <input type = "number" id = "customtiming" value = 1000>
-      input delay here!
-    </input>
-    <div id="soundz">
-      test notification
-      <audio id="myAudio">
         <source id = "DeezNutz" src="musics/Iphone_opening_ringtone.ogg" type="audio/ogg">
         <source src="musics/Iphone_opening_ringtone.mp3" type="audio/mpeg">
       </audio>
@@ -53,6 +47,10 @@
         <section class="subscription-details js-subscription-details is-invisible">
           <pre><code class="js-subscription-json"></code></pre>
         </section>
+<div class="col s8 m4 center offset-s2 offset-m4">
+        <input placeholder="Notification time (minutes)" type="number" id="customtiming">
+        </input>
+</div>
         <table class="striped">
           <thead>
             <th>Legend</th>
@@ -220,7 +218,7 @@
               requireInteraction: true
             };
             //let delay = arrtimems-120000;
-            let diff = document.getElementById("customtiming").value*60*1000
+            let diff = abs(document.getElementById("customtiming").value*60*1000)
             let delay = arrtimems - diff;
             setTimeout(function() {swRegistration.showNotification(title, options);
                                    document.getElementById("myAudio").play();
@@ -234,7 +232,8 @@
               body: 'Please proceed to '+bus_dict[parseInt(stopno)]+' to board your bus!',
               requireInteraction: true
             };
-            let delay = arrtime2ms-200000;
+            let diff = abs(document.getElementById("customtiming").value*60*1000)
+            let delay = arrtime2ms-diff;
             setTimeout(function() {swRegistration.showNotification(title, options);
                                    document.getElementById("myAudio").play();
                                   },delay
@@ -247,7 +246,8 @@
               body: 'Please proceed to '+bus_dict[parseInt(stopno)]+' to board your bus!',
               requireInteraction: true
             };
-            let delay = arrtime3ms-300000;
+            let diff = abs(document.getElementById("customtiming").value*60*1000)
+            let delay = arrtime3ms-diff;
             setTimeout(function() {swRegistration.showNotification(title, options);
                                    document.getElementById("myAudio").play();
                                   },delay
@@ -255,18 +255,6 @@
           })
         }
       });
-      $('#soundz')[0].addEventListener('click', function() {
-        const title = ' is arriving soon';
-        const options = {
-          body: 'Please proceed to the bus stop to board your bus!',
-          requireInteraction: true
-        };
-        let delay = 1000;
-        setTimeout(function() {swRegistration.showNotification(title, options);
-                               document.getElementById("myAudio").play();
-                              },delay
-        )
-      })
     </script>
     <script>
       var panorama;

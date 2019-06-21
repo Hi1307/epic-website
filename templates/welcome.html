@@ -29,7 +29,7 @@
         position: absolute;
         left: 30px;
         font-family: "Helvetica Neue";
-        width: 100px;
+        width: 200px;
       }
       html{
         background-image: url("https://i.imgur.com/Aa29jBB.jpg");
@@ -141,7 +141,7 @@ background-size: cover;
         map.data.addListener('click', function(event) {
           busstopcode = event.feature.getProperty('busstopcode');
           description = event.feature.getProperty('description');
-          document.getElementById('info-box').innerHTML = '<a href="https://qwiklabs-gcp-cc134da2983f59a0.appspot.com/results?stop='+busstopcode+'">'+description+'</a>';
+          document.getElementById('info-box').innerHTML = '<a href="https://qwiklabs-gcp-cc134da2983f59a0.appspot.com/results?stop='+busstopcode+'">'+busstopcode+': '+description+'</a>';
         });
         infoWindow = new google.maps.InfoWindow;
         // Try HTML5 geolocation.
@@ -192,7 +192,7 @@ jQuery("#lmao").append('<h6>Your favourite bus stops:</h6>')
 for(i=1; i<fav.length; i++){
 stopno = fav[i]
 stopname = bus_dict[parseInt(stopno)]
-jQuery("#lmao").append('<a class="waves-effect waves-light btn brown" href="/results?stop='+stopno+'">'+stopname+'</a>')
+jQuery("#lmao").append('<a class="waves-effect waves-light btn brown" href="/results?stop='+stopno+'">'+stopno+': '+stopname+'</a>')
 }
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5jUfWC1Us-pdmcOUCKUzp1HWHMJN8OSU&callback=initMap"></script>
