@@ -76,8 +76,8 @@ background-size: cover;
           <form class="col s12">
             <div class="center">
               <form><h4 class="center"><u>   Bus Stop Number: </u></h4>
-                <input id="bus_stop_no" type="text" maxlength="7" class=" center" placeholder="Bus Stop Number" >
-                <a class="btn waves-effect waves-light" onClick="javascript: location.replace('https://qwiklabs-gcp-cc134da2983f59a0.appspot.com/results?stop='+document.getElementById('bus_stop_no').value);">Go!</a>
+                <input id="bus_stop_no" autocomplete="off" type="text" maxlength="7" class=" center" placeholder="Bus Stop Number" >
+                <a class="btn waves-effect waves-light" onClick="javascript: redir(document.getElementById('bus_stop_no').value)">Go!</a>
               </form>
               <a class="btn waves-effect waves-light modal-trigger" href="#map1">Nearby bus stops</a>
               <br>
@@ -138,7 +138,11 @@ background-size: cover;
           zoom: 16
         });
         map.data.loadGeoJson('https://rawcdn.githack.com/Hi1307/seetowcdn/6cb5b17532a03b09ec864e12b53accea125eede8/geojson.json');
-        map.data.addListener('click', function(event) { document.getElementById('info-box').textContent = event.feature.getProperty('busstopcode'); });
+        map.data.addListener('click', function(event) {
+          busstopcode = event.feature.getProperty('busstopcode');
+          description = event.feature.getProperty('description');
+          document.getElementById('info-box').innerHTML = '<a href="https://qwiklabs-gcp-cc134da2983f59a0.appspot.com/results?stop='+busstopcode+'">'+description+'</a>';
+        });
         infoWindow = new google.maps.InfoWindow;
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
@@ -175,6 +179,11 @@ var value = re.exec(document.cookie);
 return (value != null) ? unescape(value[1]) : null;
 }
 
+function redir(code){
+  code = document.getElementById("bus_stop_no").value;
+  window.location = 'https://qwiklabs-gcp-cc134da2983f59a0.appspot.com/results?stop='+code
+}
+
 fav = getCookie("fav");
 fav = fav.split(",")
 
@@ -183,7 +192,7 @@ jQuery("#lmao").append('<h6>Your favourite bus stops:</h6>')
 for(i=1; i<fav.length; i++){
 stopno = fav[i]
 stopname = bus_dict[parseInt(stopno)]
-jQuery("#lmao").append('<a class="waves-effect waves-light btn brown" href="/resultsv3?stop='+stopno+'">'+stopname+'</a>')
+jQuery("#lmao").append('<a class="waves-effect waves-light btn brown" href="/results?stop='+stopno+'">'+stopname+'</a>')
 }
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5jUfWC1Us-pdmcOUCKUzp1HWHMJN8OSU&callback=initMap"></script>

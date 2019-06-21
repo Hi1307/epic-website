@@ -27,7 +27,7 @@ function updateSubscriptionOnServer(subscription) {
     document.querySelector('.js-subscription-details');
 
   if (subscription) {
-    subscriptionJson.textContent = "";
+    subscriptionJson.textContent = "Success!";
     subscriptionDetails.classList.remove('is-invisible');
   } else {
     subscriptionDetails.classList.add('is-invisible');
