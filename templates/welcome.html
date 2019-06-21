@@ -47,12 +47,12 @@
     <div class="container center">
       <div class="row center">
         <h1 class="center"><b>  Welcome {{email}} to The Bus App </b></h1>
-        <div class="center">
+        <div class="center" id="lmao">
           <form class="col s12">
             <div class="center">
               <form><h4 class="center"><u>   Bus Stop Number: </u></h4>
                 <input id="bus_stop_no" type="text" maxlength="7" class=" center" placeholder="Bus Stop Number" >
-                <a class="btn waves-effect waves-light" onClick="javascript: location.replace('https://qwiklabs-gcp-bde03a1b81592525.appspot.com/results?stop='+document.getElementById('bus_stop_no').value);">Go!</a>
+                <a class="btn waves-effect waves-light" onClick="javascript: location.replace('https://qwiklabs-gcp-cc134da2983f59a0.appspot.com//results?stop='+document.getElementById('bus_stop_no').value);">Go!</a>
               </form>
               <a class="btn waves-effect waves-light modal-trigger" href="#map1">Nearby bus stops</a>
               <br>
@@ -88,6 +88,8 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://rawcdn.githack.com/Hi1307/epic-website/fbc9b31fb17e548df6a03ca793361c6e2d1dc676/templates/busapp.js"></script>
+
     <script>
       $(document).ready(function(){
         $('.modal').modal();
@@ -140,6 +142,24 @@
           'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(map);
       }
+
+function getCookie(name)
+{
+var re = new RegExp(name + "=([^;]+)");
+var value = re.exec(document.cookie);
+return (value != null) ? unescape(value[1]) : null;
+}
+
+fav = getCookie("fav");
+fav = fav.split(",")
+
+jQuery("#lmao").append('<h6>Your favourite bus stops:</h6>')
+
+for(i=1; i<fav.length; i++){
+stopno = fav[i]
+stopname = bus_dict[parseInt(stopno)]
+jQuery("#lmao").append('<a class="waves-effect waves-light btn brown" href="/resultsv3?stop='+stopno+'">'+stopname+'</a>')
+}
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5jUfWC1Us-pdmcOUCKUzp1HWHMJN8OSU&callback=initMap"></script>
   </body>
