@@ -37,6 +37,9 @@ handlers:
 - url: /styles
   static_dir: styles
 
+- url: /musics
+  static_dir: musics
+
 - url: .*
   script: main.app
 

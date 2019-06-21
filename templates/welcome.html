@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>The Bus App </title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
-
-  <STYLE TYPE="text/css" MEDIA=screen>
+  <head>
+    <title>The Bus App </title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <style TYPE="text/css" MEDIA=screen>
     body    { border: 20px solid grey }
     h4       { text-align: center}
     bus_stop_no {align-items: center}
@@ -23,131 +22,114 @@
         left: 30px;
         font-family: "Helvetica Neue"
       }
-
-  </STYLE>
-</head>
-<body bgcolor="#B0C4DE">
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-<div class="container center">
-
-    <div class="row center">
-<h1 class="center"> <b>  Welcome {{email}} to The Bus App </b>  </h1>
-
-<div class="center">
-    <form class="col s12">
-      <div class="center">
-
-        <form><h4 class="center"><u>   Bus Stop Number: </u> </h4>
-          <input id="bus_stop_no" type="text" maxlength="7" class=" center" placeholder="Bus Stop Number" >
-          <a class="btn waves-effect waves-light" onClick="javascript: location.replace('https://qwiklabs-gcp-cc134da2983f59a0.appspot.com/results?stop='+document.getElementById('bus_stop_no').value);">Go!
-          </a></form>
-
-          <a class="btn waves-effect waves-light modal-trigger" href="#map1">Nearby bus stops</a> <br>
-
-          <a target="_blank" href="{{login_url}}"><img src="https://developers.google.com/identity/images/btn_google_signin_light_normal_web.png"></a>
-
-
+    </style>
+  </head>
+  <body bgcolor="#B0C4DE">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="container center">
+      <div class="row center">
+        <h1 class="center"><b>  Welcome {{email}} to The Bus App </b></h1>
+        <div class="center">
+          <form class="col s12">
+            <div class="center">
+              <form><h4 class="center"><u>   Bus Stop Number: </u></h4>
+                <input id="bus_stop_no" type="text" maxlength="7" class=" center" placeholder="Bus Stop Number" >
+                <a class="btn waves-effect waves-light" onClick="javascript: location.replace('https://qwiklabs-gcp-bde03a1b81592525.appspot.com/results?stop='+document.getElementById('bus_stop_no').value);">Go!</a>
+              </form>
+              <a class="btn waves-effect waves-light modal-trigger" href="#map1">Nearby bus stops</a>
+              <br>
+              <a target="_blank" href="{{login_url}}"><img src="https://developers.google.com/identity/images/btn_google_signin_light_normal_web.png"></a>
+            </div>
+          </form>
+        </div>
       </div>
-    </form>
-
-  </div>
-</div>
-</div>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-
-  <div id="map1" class="modal">
-    <div class="modal-content">
-    <div id="map"></div>
-    <div id="info-box">Find a bus stop!</div></div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-  </div>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<script>
-
-$(document).ready(function(){
-  $('.modal').modal();
-});
-
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div id="map1" class="modal">
+      <div class="modal-content">
+        <div id="map">
+        </div>
+        <div id="info-box">Find a bus stop!
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('.modal').modal();
+      });
 // Note: This example requires that you consent to location sharing when
 // prompted by your browser. If you see the error "The Geolocation service
 // failed.", it means you probably did not give permission for the browser to
 // locate you.
-var map, infoWindow;
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 1.290270, lng: 103.851959},
-    restriction: {
-    latLngBounds: {
-        north: 1.506417,
-        south: 1.199572,
-        west: 103.552020,
-        east: 104.058765,
-      },
-      },
-    zoom: 16
-  });
-
-    map.data.loadGeoJson(
-      'https://rawcdn.githack.com/Hi1307/seetowcdn/6cb5b17532a03b09ec864e12b53accea125eede8/geojson.json');
-
-map.data.addListener('click', function(event) { document.getElementById('info-box').textContent = event.feature.getProperty('busstopcode'); });
-
-  infoWindow = new google.maps.InfoWindow;
-
-  // Try HTML5 geolocation.
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-
-      infoWindow.setPosition(pos);
-      infoWindow.setContent("You're here!");
-      infoWindow.open(map);
-      map.setCenter(pos);
-    }, function() {
-      handleLocationError(true, infoWindow, map.getCenter());
-    });
-  } else {
-    // Browser doesn't support Geolocation
-    handleLocationError(false, infoWindow, map.getCenter());
-  }
-}
-
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-  infoWindow.setPosition(pos);
-  infoWindow.setContent(browserHasGeolocation ?
-                        'Error: The Geolocation service failed.' :
-                        'Error: Your browser doesn\'t support geolocation.');
-  infoWindow.open(map);
-}
-</script>
-<script async defer
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5jUfWC1Us-pdmcOUCKUzp1HWHMJN8OSU&callback=initMap">
-</script>
-</body>
+      var map, infoWindow;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 1.290270, lng: 103.851959},
+          restriction: {
+            latLngBounds: {
+              north: 1.506417,
+              south: 1.199572,
+              west: 103.552020,
+              east: 104.058765,
+            },
+          },
+          zoom: 16
+        });
+        map.data.loadGeoJson('https://rawcdn.githack.com/Hi1307/seetowcdn/6cb5b17532a03b09ec864e12b53accea125eede8/geojson.json');
+        map.data.addListener('click', function(event) { document.getElementById('info-box').textContent = event.feature.getProperty('busstopcode'); });
+        infoWindow = new google.maps.InfoWindow;
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            infoWindow.setPosition(pos);
+            infoWindow.setContent("You're here!");
+            infoWindow.open(map);
+            map.setCenter(pos);
+          },
+          function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+      // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+          'Error: The Geolocation service failed.' :
+          'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5jUfWC1Us-pdmcOUCKUzp1HWHMJN8OSU&callback=initMap"></script>
+  </body>
 </html>
