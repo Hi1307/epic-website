@@ -121,7 +121,7 @@ function initializeUI() {
 }
 
 if ('serviceWorker' in navigator && 'PushManager' in window) {
-      navigator.serviceWorker.register('scripts/service.js').then(function(swRegistration) {
+      navigator.serviceWorker.register('https://rawcdn.githack.com/Hi1307/epic-website/d4e94119ef37d18aacaec33b1d28f067bba4ce0a/scripts/service.js').then(function(swRegistration) {
       console.log('ServiceWorker registration successful with scope: ', swRegistration);
       initializeUI();
     }).catch(function(err) {
