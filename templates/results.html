@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="https://rawcdn.githack.com/Hi1307/epic-website/3ff373dba97086f43e3afa7c41bcdd0a206e0100/styles/index.css">
   </head>
   <body>
+<<<<<<< HEAD
     <form><h4 class="center"><u>   Bus Stop Number: </u></h4>
       <input id="bus_stop_no" type="text" maxlength="7" class=" center" placeholder="Bus Stop Number" >
       <a class="btn waves-effect waves-light" onClick="javascript: location.replace('https://qwiklabs-gcp-bde03a1b81592525.appspot.com/results?stop='+document.getElementById('bus_stop_no').value);">Go!</a>
@@ -42,10 +43,13 @@
         <source src="musics/Iphone_opening_ringtone.mp3" type="audio/mpeg">
       </audio>
     </div>
+=======
+    <div id="sound"></div>
+>>>>>>> 98033fb2ebc5d78fd6f86160cf4851ecb1728e92
     <div class="container">
       <div class="row">
         <h1 class="center"><span id="hm"></span></h1>
-        <a class="btn waves-effect waves-light modal-trigger" href="#map1">Street view</a>
+        <p class="center"><a class="btn waves-effect waves-light" href="/"><i class="material-icons">arrow_back</i></a><a class="btn waves-effect waves-light modal-trigger" href="#map1">Street view</a><a class="btn waves-effect waves-light" onClick="window.location.reload();"><i class="material-icons">refresh</i></a><a class="btn waves-effect waves-light" onClick="updatecookie();"><i class="material-icons">star</i></a></p>
         <br>
         <button disabled class="js-push-btn btn waves-effect waves-light">
           Enable bus alerts!
