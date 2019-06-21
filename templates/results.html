@@ -31,7 +31,11 @@
     <link rel="stylesheet" href="https://rawcdn.githack.com/Hi1307/epic-website/3ff373dba97086f43e3afa7c41bcdd0a206e0100/styles/index.css">
   </head>
   <body>
-    <div id="sound">
+    <input type = "number" id = "customtiming" value = 1000>
+      input delay here!
+    </input>
+    <div id="soundz">
+      test notification
       <audio id="myAudio">
         <source id = "DeezNutz" src="musics/Iphone_opening_ringtone.ogg" type="audio/ogg">
         <source src="musics/Iphone_opening_ringtone.mp3" type="audio/mpeg">
@@ -215,7 +219,9 @@
               body: 'Please proceed to '+bus_dict[parseInt(stopno)]+' to board your bus!',
               requireInteraction: true
             };
-            let delay = arrtimems-120000;
+            //let delay = arrtimems-120000;
+            let diff = document.getElementById("customtiming").value*60*1000
+            let delay = arrtimems - diff;
             setTimeout(function() {swRegistration.showNotification(title, options);
                                    document.getElementById("myAudio").play();
                                   },delay
@@ -249,7 +255,7 @@
           })
         }
       });
-      $('#sound')[0].addEventListener('click', function() {
+      $('#soundz')[0].addEventListener('click', function() {
         const title = ' is arriving soon';
         const options = {
           body: 'Please proceed to the bus stop to board your bus!',
